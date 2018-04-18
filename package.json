@@ -19,6 +19,6 @@
   "author": "Michael Staub (mikestaub22@gmail.com)",
   "license": "MIT",
   "bin": {
-    "simple-secrets": "./index.js"
+    "simple-secrets": "./bin.js"
   }
 }

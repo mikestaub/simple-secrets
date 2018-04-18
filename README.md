@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a small, opinionated library for managing app secrets.
+This is a small, opinionated library for managing app secrets. The developer now must only manage a single, master key to access all sensitive data for the project.
 
 For small to medium sized projects and teams, this approach should be sufficient. For a more robust / complex solution, something like HashiCorp Vault or AWS Secrets Manager should be used.
 
@@ -10,7 +10,15 @@ For small to medium sized projects and teams, this approach should be sufficient
 
 ### Storing secrets
 
-1.  create a file called 'secrets.js' and have it export an object containing sensitive data
+1.  create a file called 'secrets.js' and have it export an object containing sensitive data in the following format:
+```
+module.exports = {
+  API_KEY: {
+    staging: "123",
+    production: "345"
+  }
+}
+```
 2.  add the 'secrets.js' file to the project's .gitignore as to not accidentally commit it
 3.  add the following script to the package.json:
 

@@ -1,32 +1,13 @@
-#!/usr/bin/env node
 
+const path = require('path')
 const encryptor = require("file-encryptor");
-
-const argv = require("yargs")
-  .demandCommand(1)
-  .strict()
-  .help()
-  .command("encrypt", "encrypt ./secrets.js file")
-  .command("decrypt", "decrypt ./secrets.js.encrypted file")
-  .command("print", "print contents of ./secrets.js to stdout")
-  .command("export", "inject contents of ./secrets.js into process.env").argv;
-
-const command = argv["_"][0];
 
 const FILE_NAME = "secrets.js";
 const FILE_NAME_ENC = FILE_NAME + ".encrypted";
 
-(function main() {
-  return {
-    encrypt: encryptFile,
-    decrypt: decryptFile,
-    print: printEnvVars,
-    export: writeToProcessEnv,
-  }[command]();
-})();
-
 function getSecrets() {
-  const allSecrets = require("./" + FILE_NAME);
+  const secretsFile = path.resolve(process.cwd(), FILE_NAME)
+  const allSecrets = require(secretsFile);
   return Object.keys(allSecrets).reduce((prev, next) => {
     prev[next] = allSecrets[next][process.env.NODE_ENV];
     return prev;
@@ -75,4 +56,12 @@ function _getEncryptionKey() {
     throw new Error("ENCRYPTION_KEY env var must be set");
   }
   return key;
+}
+
+module.exports = {
+  getSecrets,
+  writeToProcessEnv,
+  printEnvVars,
+  encryptFile,
+  decryptFile
 }
