@@ -1,0 +1,17 @@
+{
+  "name": "@mikestaub/simple-secrets",
+  "version": "1.0.0",
+  "description": "Utilities for managing encrypted secrets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "secrets"
+  ],
+  "author": "Michael Staub (mikestaub22@gmail.com)",
+  "license": "MIT",
+  "bin": {
+    "simple-secrets": "./index.js"
+  }
+}
