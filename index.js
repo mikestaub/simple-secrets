@@ -1,5 +1,6 @@
 
-const path = require('path')
+const path = require("path")
+const fs = require("fs");
 const encryptor = require("file-encryptor");
 
 const FILE_NAME = "secrets.js";
@@ -42,6 +43,10 @@ function encryptFile() {
 
 function decryptFile() {
   const key = _getEncryptionKey();
+  if (!fs.existsSync(FILE_NAME_ENC)) {
+    console.warn("Warning: cannot decrypt missing file: " + FILE_NAME_ENC);
+    return;
+  }
   encryptor.decryptFile(FILE_NAME_ENC, FILE_NAME, key, function(err) {
     if (err) {
       throw err;
